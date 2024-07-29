@@ -1,0 +1,39 @@
+.find-your-match-section .button-wrapper .button::after {
+    display: none;
+}
+.find-your-match-section .match-card .match-card__image.media__hover {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+.find-your-match-section .match-card:hover .match-card__image.media__hover{
+    opacity: 1;
+    visibility: visible;
+}
+.position-relative{
+    position: relative !important;
+}
+.text-center{
+    text-align: center !important;
+}
+.m-0{
+    margin: 0 !important;
+}
+.ml-10{
+    margin-left: 10px !important;
+}
+.mb-10{
+    margin-bottom: 10px !important;
+}
+.mb-40{
+    margin-bottom: 40px !important;
+}
+.my-30{
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+}
+.my-60{
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}

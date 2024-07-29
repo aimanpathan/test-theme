@@ -1,0 +1,121 @@
+<div id="find-your-match-{{ section.id }}" class="find-your-match-section page-width my-60">
+    <div class="title-wrapper title-wrapper--no-top-margin page-width text-center">
+        <h2 class="title inline-richtext h2 scroll-trigger animate--slide-in">
+            {{ section.settings.title }}
+        </h2>
+        <p class="title__description">{{ section.settings.description }}</p>
+    </div>
+    <div class="grid match-grid contains-card contains-card--product contains-card--standard grid--3-col-desktop grid--2-col-tablet-down">
+        {% for block in section.blocks %}
+            {% assign blockSettings = block.settings %}
+            <div class="grid__item animate--slide-in">
+                <div class="match-card position-relative text-center mb-40">
+                    <div class="card__media position-relative mb-10">
+                        <div class="media" style="padding-bottom: 100%;">
+                            <img src="{{ blockSettings.card_image.src |  image_url: width: 400 }}" alt="{{ blockSettings.card_title }}" class="match-card__image motion-reduce">
+                            <img src="{{ blockSettings.card_hover_image.src |  image_url: width: 400 }}" alt="{{ blockSettings.card_title }}" class="match-card__image motion-reduce media__hover">
+                        </div>
+                    </div>
+                    <h2 class="match-card__title m-0">{{ blockSettings.title }}</h2>
+                    <p class="match-card__description m-0">{{ blockSettings.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="button-wrapper text-center">
+        <a href="{{ section.settings.button_link }}" class="button" style="background-color: {{ section.settings.button_color }}; border-radius: {{ section.settings.button_border_radius }}px; padding: {{ section.settings.button_padding }}px;">
+            {{ section.settings.button_text }} <span class="ml-10">&#8594;</span>
+        </a>
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Find Your Match",
+    "settings": [
+        {
+            "type": "text",
+            "label": "Title",
+            "id": "title",
+            "default": "Find Your Match"
+        },
+        {
+            "type": "textarea",
+            "label": "Description",
+            "id": "description"
+        },
+        {
+            "type": "text",
+            "label": "Button Text",
+            "id": "button_text",
+            "default": "Learn More..."
+        },
+        {
+            "type": "url",
+            "label": "Button Link",
+            "id": "button_link"
+        },
+        {
+            "type": "color",
+            "label": "Button Color",
+            "id": "button_color",
+            "default": "#000000"
+        },
+        {
+            "type": "number",
+            "label": "Button Border Radius",
+            "id": "button_border_radius",
+            "default": 5
+        },
+        {
+            "type": "number",
+            "label": "Button Padding",
+            "id": "button_padding",
+            "default": 10
+        }
+    ],
+    "blocks": [
+        {
+            "type": "match_card",
+            "name": "Match Card",
+            "settings": [
+                {
+                    "type": "text",
+                    "label": "Title",
+                    "id": "card_title"
+                },
+                {
+                    "type": "image_picker",
+                    "label": "Image",
+                    "id": "card_image"
+                },
+                {
+                    "type": "image_picker",
+                    "label": "Hover Image",
+                    "id": "card_hover_image"
+                },
+                {
+                    "type": "textarea",
+                    "label": "Description",
+                    "id": "card_description"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Find Your Match",
+        "blocks": [
+            {
+                "type": "match_card"
+            },
+            {
+                "type": "match_card"
+            },
+            {
+                "type": "match_card"
+            }
+            ]
+        }
+    ]
+}
+{% endschema %}

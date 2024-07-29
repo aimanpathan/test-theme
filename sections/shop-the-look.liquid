@@ -1,0 +1,109 @@
+{% style %}
+  #shop-the-look-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  #shop-the-look-{{ section.id }} .product-grid {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+  }
+
+  #shop-the-look-{{ section.id }} .product-grid__item {
+    flex: 1;
+    transition: flex 0.5s ease-in-out;
+    overflow: hidden;
+    height: 300px;
+  }
+
+  #shop-the-look-{{ section.id }} .match-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (min-width: 768px) {
+    #shop-the-look-{{ section.id }} .product-grid__item:hover {
+      flex: 1.5;
+    }
+  }
+  @media (max-width: 767px) {
+    #shop-the-look-{{ section.id }} .product-grid {
+      flex-direction: column;
+    }
+
+    #shop-the-look-{{ section.id }} .product-grid__item {
+      flex: 1 1 auto;
+    }
+  }
+{% endstyle %}
+<div id="shop-the-look-{{ section.id }}" class="shop-the-look-section page-width my-60">
+  <div class="title-wrapper title-wrapper--no-top-margin page-width text-center">
+    <h2 class="title inline-richtext h2 scroll-trigger animate--slide-in">
+      {{ section.settings.title }}
+    </h2>
+    <p class="title__description">{{ section.settings.description }}</p>
+  </div>
+  <div class="product-grid match-grid contains-card contains-card--product contains-card--standard">
+
+    {% for product in section.settings.collection.products limit: section.settings.product_limit %}
+      <div class="product-grid__item animate--slide-in">
+        <div class="match-card position-relative text-center mb-40">
+          <div class="card__media position-relative mb-10">
+            <div class="media" style="padding-bottom: 100%;">
+              <a href="{{ product.url }}">
+                <img
+                  src="{{ product.featured_image.src | image_url: width: 400 }}"
+                  alt="{{ product.title }}"
+                  class="match-card__image motion-reduce">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Shop the look",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "title",
+        "default": "Product Title"
+      },
+      {
+        "type": "text",
+        "label": "Description",
+        "id": "description",
+        "default": "Product Description"
+      },
+      {
+        "type": "collection",
+        "label": "Collection",
+        "id": "collection"
+      },
+      {
+        "type": "number",
+        "label": "Product Limit",
+        "id": "product_limit",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "label": "Animation",
+        "id": "animation",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop the look",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
