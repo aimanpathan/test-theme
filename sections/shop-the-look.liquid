@@ -3,6 +3,26 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: #f9f9f9;
+    padding: 40px 0;
+  }
+
+  #shop-the-look-{{ section.id }} .title-wrapper {
+    max-width: 800px;
+  }
+  #shop-the-look-{{ section.id }} .title-wrapper .title p{
+        margin:20px 0;
+    }
+ 
+  #shop-the-look-{{ section.id }} .title-wrapper .title {
+    font-family: 'MinervaModern';
+    font-weight: 450;
+    font-size: 48px;
+    line-height: 62.4px;
+    letter-spacing: 0.2px;
+  }
+  #shop-the-look-{{ section.id }} .title-wrapper .title strong{
+    color: #B44098;
   }
 
   #shop-the-look-{{ section.id }} .product-grid {
@@ -14,55 +34,100 @@
   #shop-the-look-{{ section.id }} .product-grid__item {
     flex: 1;
     transition: flex 0.5s ease-in-out;
+    max-height: 500px;
+    border-radius: 20px;
     overflow: hidden;
-    height: 300px;
+    position: relative;
+    background-color: #fff;
+  }
+
+  #shop-the-look-{{ section.id }} .media {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+  #shop-the-look-{{ section.id }} .match-card,
+  #shop-the-look-{{ section.id }} .card__media {
+    height: 100%;
+  }
+
+  #shop-the-look-{{ section.id }} .media a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
   }
 
   #shop-the-look-{{ section.id }} .match-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: none;
   }
+
   @media (min-width: 768px) {
+    #shop-the-look-{{ section.id }} .product-grid__item {
+    flex: 1;
+    transition: flex 0.5s ease-in-out;
+    max-height: 500px;
+    width:80%;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+  }
     #shop-the-look-{{ section.id }} .product-grid__item:hover {
       flex: 1.5;
+      overflow: hidden;
+      width: 100%;
     }
+    
   }
+
   @media (max-width: 767px) {
     #shop-the-look-{{ section.id }} .product-grid {
       flex-direction: column;
+      align-items: center;
     }
 
     #shop-the-look-{{ section.id }} .product-grid__item {
       flex: 1 1 auto;
     }
+    #shop-the-look-{{ section.id }} .product-grid__item {
+      max-width: 300px;
+      marin: 0 auto;
+    }
   }
 {% endstyle %}
-<div id="shop-the-look-{{ section.id }}" class="shop-the-look-section page-width my-60">
-  <div class="title-wrapper title-wrapper--no-top-margin page-width text-center">
-    <h2 class="title inline-richtext h2 scroll-trigger animate--slide-in">
-      {{ section.settings.title }}
-    </h2>
-    <p class="title__description">{{ section.settings.description }}</p>
-  </div>
-  <div class="product-grid match-grid contains-card contains-card--product contains-card--standard">
 
-    {% for product in section.settings.collection.products limit: section.settings.product_limit %}
-      <div class="product-grid__item animate--slide-in">
-        <div class="match-card position-relative text-center mb-40">
-          <div class="card__media position-relative mb-10">
-            <div class="media" style="padding-bottom: 100%;">
-              <a href="{{ product.url }}">
-                <img
-                  src="{{ product.featured_image.src | image_url: width: 400 }}"
-                  alt="{{ product.title }}"
-                  class="match-card__image motion-reduce">
-              </a>
+<div id="shop-the-look-{{ section.id }}" class="shop-the-look-section">
+  <div class="page-width my-40">
+    <div class="title-wrapper title-wrapper--no-top-margin page-width text-center">
+      <h2 class="title inline-richtext h2 scroll-trigger animate--slide-in">
+        {{ section.settings.title }}
+      </h2>
+      <p class="title__description">{{ section.settings.description }}</p>
+    </div>
+    <div class="product-grid match-grid contains-card contains-card--product contains-card--standard">
+      {% for product in section.settings.collection.products limit: section.settings.product_limit %}
+        <div class="product-grid__item animate--slide-in">
+          <div class="match-card text-center">
+            <div class="card__media">
+              <div class="media">
+                <a href="{{ product.url }}">
+                  <img
+                    src="{{ product.featured_image.src | image_url: width: 400 }}"
+                    alt="{{ product.title }}"
+                    class="match-card__image motion-reduce">
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 </div>
 {% schema %}
@@ -70,10 +135,9 @@
     "name": "Shop the look",
     "settings": [
       {
-        "type": "text",
+        "type": "richtext",
         "label": "Title",
-        "id": "title",
-        "default": "Product Title"
+        "id": "title"
       },
       {
         "type": "text",
